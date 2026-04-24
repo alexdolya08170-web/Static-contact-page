@@ -78,15 +78,24 @@
   background-color: #fff1f2;
 }
 
+/* --- NAVIGATION --- */
 .nav {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 0; /* По умолчанию на всю ширину для мобильных */
   right: 0;
   z-index: 100;
   transition: all 0.3s ease;
   padding: 1.5rem 0;
   background-color: transparent;
+}
+
+/* Десктопные отступы */
+@media (min-width: 1200px) {
+  .nav {
+    left: 210px;
+    right: 210px;
+  }
 }
 
 .navScrolled {
@@ -111,22 +120,22 @@
   .navContainer { padding: 0 3rem; }
 }
 
-/* --- LOGO STYLES START --- */
+/* --- LOGO STYLES --- */
 
 .logoLink {
   text-decoration: none;
   cursor: pointer;
-  /* Центрирование для мобильных устройств */
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 102; /* Чтобы был поверх мобильного меню если нужно */
+  position: static;
+  transform: none;
+  z-index: 102; 
 }
 
-@media (min-width: 768px) {
-  .logoLink { 
-    position: static; 
-    transform: none; 
+/* Центрирование логотипа на мобильных */
+@media (max-width: 1199px) {
+  .logoLink {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
@@ -142,19 +151,21 @@
 .logoIcon {
   width: 28px;
   height: 28px;
-  color: #fb7185; /* Розовый цвет иконки */
+  color: #fb7185; 
 }
 
-/* --- LOGO STYLES END --- */
-
+/* --- DESKTOP LINKS --- */
 .navLinksDesktop {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 2rem;
 }
 
-@media (min-width: 768px) {
-  .navLinksDesktop { display: flex; }
+/* Скрываем ссылки на мобильных и планшетах */
+@media (max-width: 1199px) {
+  .navLinksDesktop {
+    display: none;
+  }
 }
 
 .navLink {
@@ -169,43 +180,7 @@
   color: #fb7185;
 }
 
-.mobileMenuBtn {
-  display: block;
-  background: none;
-  border: none;
-  color: #1c1917;
-  padding: 0.5rem;
-  cursor: pointer;
-  z-index: 101;
-  position: relative;
-}
-
-@media (min-width: 768px) {
-  .mobileMenuBtn { display: none; }
-}
-
-.mobileMenuOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: white;
-  z-index: 99;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
-  padding-top: 4rem;
-}
-
-.mobileMenuOverlay .navLink {
-  font-size: 1.5rem;
-  text-align: center;
-  display: block;
-  width: 100%;
-}
+/* --- HERO SECTION --- */
 
 .heroSection {
   position: relative;
@@ -450,6 +425,8 @@
   margin-top: 4rem;
 }
 
+/* --- PROCESS SECTION --- */
+
 .processGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -471,33 +448,31 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  z-index: 1;
 }
 
 @media (min-width: 768px) {
   .processStep {
     align-items: flex-start;
     text-align: left;
+    padding: 0 1.5rem;
+    width: 100%;
   }
 }
 
-.processStep::after {
-  content: '';
-  position: absolute;
-  top: 28px; 
-  right: -50%; 
-  width: 100%; 
-  height: 2px;
-  background-color: #ffe4e6; 
-  z-index: -1;
+.stepHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
-.processStep:last-child::after {
-  display: none;
-}
-
-@media (max-width: 767px) {
-  .processStep::after {
-    display: none;
+@media (min-width: 768px) {
+  .stepHeader {
+    justify-content: flex-start;
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -512,10 +487,37 @@
   justify-content: center;
   font-weight: 700;
   font-size: 1rem;
-  margin-bottom: 2rem;
   box-shadow: 0 10px 15px -3px rgba(251, 113, 133, 0.2);
   position: relative;
-  z-index: 1; 
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.processLineConnector {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #fb7185 0%, #fecdd3 100%);
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 999px;
+  opacity: 0.6;
+}
+
+@media (max-width: 767px) {
+  .processLineConnector {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .processLineConnector {
+    width: 100%; 
+    margin-left: 1.75rem;
+    width: calc(100% - 3.5rem);
+    transform: translateY(-50%);
+  }
 }
 
 .processStepTitle {
@@ -530,6 +532,8 @@
   font-size: 1.125rem;
   line-height: 1.625;
 }
+
+/* --- CONTACT SECTION --- */
 
 .contactCard {
   background: white;
@@ -566,7 +570,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Стили для логотипа внутри розовой секции контактов */
 .contactHeader .logoWrapper {
   color: white;
   justify-content: center;
@@ -578,7 +581,7 @@
 }
 
 .contactHeader .logoIcon {
-  color: #ffe4e6; /* Светло-розовый для контраста */
+  color: #ffe4e6;
 }
 
 .contactTitle {
@@ -719,7 +722,6 @@
   }
 }
 
-/* Стили для логотипа в футере */
 .footerLogoWrapper {
   display: flex;
   align-items: center;

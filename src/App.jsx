@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Sparkles, 
   Star, 
-  Menu, 
-  X, 
   Phone, 
   Mail, 
   MapPin,
@@ -101,7 +99,6 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,6 +109,7 @@ export default function App() {
         setError(null);
       } catch (err) {
         console.error("Error fetching ", err);
+        // Fallback data
         setData({
           profile: { name: "Anna Nails", phone: "+380 99 123 4567", email: "hello@annanails.com", address: "Kyiv, Peremohy Ave 1", instagram: "https://instagram.com" },
           services: [
@@ -147,7 +145,6 @@ export default function App() {
 
   const scrollToSection = (e, href) => {
     e.preventDefault();
-    setIsMobileMenuOpen(false);
 
     const element = document.querySelector(href);
     if (element) {
@@ -199,17 +196,10 @@ export default function App() {
 
   return (
     <div className={styles.app}>
+      {/* Навбар виден всегда, но ссылки скрываются на мобильных */}
       <nav className={isScrolled ? `${styles.nav} ${styles.navScrolled}` : styles.nav}>
         <div className={styles.navContainer}>
           
-          <button 
-            className={styles.mobileMenuBtn} 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
-
           <a href="#" className={styles.logoLink} onClick={(e) => scrollToSection(e, '#')}>
             <Logo />
           </a>
@@ -228,28 +218,7 @@ export default function App() {
             </Button>
           </div>
 
-          <div className="w-10 md:hidden" style={{ visibility: isMobileMenuOpen ? 'hidden' : 'visible' }}></div>
         </div>
-
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className={styles.mobileMenuOverlay}
-            >
-               {["Послуги", "Портфоліо", "Зв'язатися"].map((item, idx) => {
-                  const href = idx === 0 ? '#services' : idx === 1 ? '#portfolio' : '#contact';
-                  return (
-                    <a key={item} href={href} className={styles.navLink} style={{ fontSize: '1.5rem' }} onClick={(e) => scrollToSection(e, href)}>
-                      {item}
-                    </a>
-                  );
-                })}
-            </motion.div>
-          )}
-        </AnimatePresence>
       </nav>
 
       <main>
@@ -319,7 +288,14 @@ export default function App() {
             <div className={styles.processGrid}>
               {process.map((step, index) => (
                 <div key={index} className={styles.processStep}>
-                  <div className={styles.processStepNum}>{index + 1}</div>
+                  <div className={styles.stepHeader}>
+                    <div className={styles.processStepNum}>{index + 1}</div>
+                    
+                    {index !== process.length - 1 && (
+                      <div className={styles.processLineConnector} />
+                    )}
+                  </div>
+                  
                   <h3 className={styles.processStepTitle}>{step.step}</h3>
                   <p className={styles.processStepDesc}>{step.desc}</p>
                 </div>
