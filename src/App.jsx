@@ -203,18 +203,31 @@ export default function App() {
           </a>
           
           <div className={styles.navLinksDesktop}>
-            {["Послуги", "Портфоліо", "Зв'язатися"].map((item, idx) => {
-              const href = idx === 0 ? '#services' : idx === 1 ? '#portfolio' : '#contact';
-              return (
-                <a key={item} href={href} className={styles.navLink} onClick={(e) => scrollToSection(e, href)}>
-                  {item}
-                </a>
-              );
-            })}
-            <Button variant="primary" className="px-6 py-3 text-sm" onClick={(e) => scrollToSection(e, '#contact')}>
-              Записатися
-            </Button>
-          </div>
+        
+          {["Послуги", "Портфоліо"].map((item) => {
+          
+            const href = item === "Послуги" ? "#services" : "#portfolio";
+            
+            return (
+              <a 
+                key={item} 
+                href={href} 
+                className={styles.navLink} 
+                onClick={(e) => scrollToSection(e, href)}
+              >
+                {item}
+              </a>
+            );
+          })}
+
+          <Button 
+            variant="primary" 
+            className="px-6 py-3 text-sm" 
+            onClick={(e) => scrollToSection(e, '#contact')}
+          >
+            Записатися
+          </Button>
+        </div>
 
         </div>
       </nav>
