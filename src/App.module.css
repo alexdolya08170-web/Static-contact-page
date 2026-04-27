@@ -78,11 +78,10 @@
   background-color: #fff1f2;
 }
 
-/* --- NAVIGATION --- */
 .nav {
   position: fixed;
   top: 0;
-  left: 0; /* По умолчанию на всю ширину для мобильных */
+  left: 0;
   right: 0;
   z-index: 100;
   transition: all 0.3s ease;
@@ -90,7 +89,6 @@
   background-color: transparent;
 }
 
-/* Десктопные отступы */
 @media (min-width: 1200px) {
   .nav {
     left: 210px;
@@ -120,8 +118,6 @@
   .navContainer { padding: 0 3rem; }
 }
 
-/* --- LOGO STYLES --- */
-
 .logoLink {
   text-decoration: none;
   cursor: pointer;
@@ -130,7 +126,6 @@
   z-index: 102; 
 }
 
-/* Центрирование логотипа на мобильных */
 @media (max-width: 1199px) {
   .logoLink {
     position: absolute;
@@ -154,14 +149,12 @@
   color: #fb7185; 
 }
 
-/* --- DESKTOP LINKS --- */
 .navLinksDesktop {
   display: flex;
   align-items: center;
   gap: 2rem;
 }
 
-/* Скрываем ссылки на мобильных и планшетах */
 @media (max-width: 1199px) {
   .navLinksDesktop {
     display: none;
@@ -179,8 +172,6 @@
 .navLink:hover {
   color: #fb7185;
 }
-
-/* --- HERO SECTION --- */
 
 .heroSection {
   position: relative;
@@ -425,8 +416,6 @@
   margin-top: 4rem;
 }
 
-/* --- PROCESS SECTION --- */
-
 .processGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -532,8 +521,6 @@
   font-size: 1.125rem;
   line-height: 1.625;
 }
-
-/* --- CONTACT SECTION --- */
 
 .contactCard {
   background: white;
@@ -697,7 +684,7 @@
 .footer {
   background-color: #1c1917;
   color: #a8a29e;
-  padding: 4rem 0;
+  padding: 5rem 0 3rem 0;
   border-top: 1px solid #292524;
   margin-top: auto;
 }
@@ -705,42 +692,56 @@
 .footerContainer {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  justify-content: center;
+  gap: 2.5rem;
   text-align: center;
+}
+
+.footerLogoWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: opacity 0.3s ease;
+}
+
+.footerLogoWrapper:hover {
+  opacity: 0.8;
+}
+
+.footerLogoWrapper .logoWrapper {
+  color: #ffffff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-family: 'Playfair Display', ui-serif, Georgia, serif;
+}
+
+.footerLogoWrapper .logoIcon {
+  color: #fb7185;
+  width: 28px;
+  height: 28px;
+}
+
+.footerCopy {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #78716c;
+  line-height: 1.6;
+  max-width: 600px;
 }
 
 @media (min-width: 768px) {
   .footerContainer { 
     padding: 0 3rem; 
-    flex-direction: row; 
-    justify-content: space-between; 
-    text-align: left;
   }
-}
-
-.footerLogoWrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.footerLogoWrapper .logoWrapper {
-  color: white;
-  font-size: 1.875rem;
-}
-
-.footerLogoWrapper .logoIcon {
-  color: #fb7185;
-  width: 32px;
-  height: 32px;
-}
-
-.footerCopy {
-  font-size: 1rem;
+  
+  .footerCopy {
+    font-size: 1.125rem;
+  }
 }
 
 .loadingContainer, .errorContainer {

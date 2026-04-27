@@ -109,7 +109,6 @@ export default function App() {
         setError(null);
       } catch (err) {
         console.error("Error fetching ", err);
-        // Fallback data
         setData({
           profile: { name: "Anna Nails", phone: "+380 99 123 4567", email: "hello@annanails.com", address: "Kyiv, Peremohy Ave 1", instagram: "https://instagram.com" },
           services: [
@@ -196,7 +195,6 @@ export default function App() {
 
   return (
     <div className={styles.app}>
-      {/* Навбар виден всегда, но ссылки скрываются на мобильных */}
       <nav className={isScrolled ? `${styles.nav} ${styles.navScrolled}` : styles.nav}>
         <div className={styles.navContainer}>
           
@@ -309,9 +307,6 @@ export default function App() {
             <div className={styles.contactCard}>
               <div className={styles.contactInfoSide}>
                 <div className="relative z-10">
-                  <div className={styles.contactHeader}>
-                     <Logo />
-                  </div>
                   <h3 className={`${styles.contactTitle} ${styles.fontSerif}`}>Зв'язатися</h3>
                   <p className={styles.contactDesc}>Запишіться на процедуру зручним для вас способом.</p>
                   <div className={styles.contactDetails}>
@@ -372,10 +367,9 @@ export default function App() {
 
       <footer className={styles.footer}>
         <div className={styles.footerContainer}>
-          <div className={styles.footerLogoWrapper}>
-             <Logo />
+          <div className={styles.footerCopy}>
+            © {new Date().getFullYear()} Всі права захищено
           </div>
-          <div className={styles.footerCopy}>Всі права захищено</div>
         </div>
       </footer>
     </div>
